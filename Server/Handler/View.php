@@ -3,15 +3,12 @@
 namespace Zvax\DNDMapper\Server\Handler;
 
 use Amp;
-use Amp\Http\Server\Request;
-use Amp\Http\Server\RequestHandler;
-use Amp\Http\Server\Response;
-use Amp\Http\Server\Router;
-use Amp\Http\Status;
+use Amp\Http\Server;
+use Amp\Http;
 use Templating\Renderer;
 use Zvax\DNDMapper\Client\View\Factory;
 
-class View implements RequestHandler
+class View implements Server\RequestHandler
 {
     private $renderer;
     private $viewFactory;
@@ -22,14 +19,14 @@ class View implements RequestHandler
         $this->viewFactory = $viewFactory;
     }
 
-    public function handleRequest(Request $request): Amp\Promise
+    public function handleRequest(Server\Request $request): Amp\Promise
     {
         return Amp\call(function() use ($request) {
-            $args = $request->getAttribute(Router::class);
+            $args = $request->getAttribute(Server\Router::class);
             $section = $args['section'];
             $html = yield $this->renderer->render("sections/$section.twig.html");
-            return new Response(
-                Status::OK,
+            return new Server\Response(
+                Http\Status::OK,
                 ['content-type' => 'text/html, charset=utf-8'],
                 $html
             );

@@ -93,10 +93,10 @@ function getRoutes(): array
         ['GET', '/', Home::class],
         ['GET', '/character[/{character_name}]', View\Character::class],
         ['GET', '/wiki', View\Wiki::class],
-        ['GET', '/{fileName:.+\.(?:js|css|ico|xml|png|svg)}', new StaticContent\DocumentRoot(__DIR__ . '/../static/')],
-        ['GET', '/{section:[^/]+(?<!\.ico)$}', Handler\View::class],
-        ['GET', '/{section:[^/]+(?<!\.ico)$}/{action}', Handler\Action::class],
-        ['POST', '/{entity:[^/]+(?<!\.ico)$}[/{action}]', Handler\Command::class],
+        ['GET', '/{fileName:.+\.(?:js|css|ico|xml|png|svg)}', StaticContent\DocumentRoot::class],
+        ['GET', '/{section}', Handler\View::class],
+        ['GET', '/{section}/{action}', Handler\Action::class],
+        ['POST', '/{entity}[/{action}]', Handler\Command::class],
     ];
 }
 
@@ -126,6 +126,9 @@ function createInjector(): Injector
         })
         ->alias(Postgres\Executor::class, Postgres\Pool::class)
         ->alias(Postgres\Link::class, Postgres\Pool::class)
-        ->share(Postgres\Pool::class);
+        ->share(Postgres\Pool::class)
+        ->delegate(StaticContent\DocumentRoot::class, function() {
+            return new StaticContent\DocumentRoot(__DIR__ . '/../static');
+        });
     return $injector;
 }

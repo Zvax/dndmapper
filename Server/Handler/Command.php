@@ -23,7 +23,7 @@ class Command implements Server\RequestHandler
          * we assume that there is always an entity being constructed
          * so first verify that the entity named in the route is buildable from the form
          */
-        return Amp\call(function() use ($request) {
+        return Amp\call(function () use ($request) {
 
             $args = $request->getAttribute(Server\Router::class);
 
