@@ -1,0 +1,47 @@
+{% extends "sections/character.twig.html" %}
+{% block detail %}
+<section>
+    <h1>{{character.name}}</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>attribute</th>
+            <th>value</th>
+            <th>modifier</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>strength</th>
+            <td>{{ character.getAttributes().strength }}</td>
+            <td>{{ (character.getAttributes().strength - 10) / 2 }}</td>
+        </tr>
+        <tr>
+            <th>dexterity</th>
+            <td>{{ character.getAttributes().dexterity }}</td>
+            <td>{{ (character.getAttributes().dexterity - 10) / 2 }}</td>
+        </tr>
+        <tr>
+            <th>constitution</th>
+            <td>{{ character.getAttributes().constitution }}</td>
+            <td>{{ (character.getAttributes().constitution - 10) / 2 }}</td>
+        </tr>
+        <tr>
+            <th>intelligence</th>
+            <td>{{ character.getAttributes().intelligence }}</td>
+            <td>{{ (character.getAttributes().intelligence - 10) / 2 }}</td>
+        </tr>
+        <tr>
+            <th>wisdom</th>
+            <td>{{ character.getAttributes().wisdom }}</td>
+            <td>{{ (character.getAttributes().wisdom - 10) / 2 }}</td>
+        </tr>
+        <tr>
+            <th>charisma</th>
+            <td>{{ character.getAttributes().charisma }}</td>
+            <td>{{ (character.getAttributes().charisma - 10) / 2 }}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+{% endblock %}

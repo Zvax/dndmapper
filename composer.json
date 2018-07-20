@@ -1,0 +1,47 @@
+{
+  "name": "zvax/dndmapper",
+  "description": "A DnD mapper, character generator and game engine.",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Zvax",
+      "email": "fractalesque@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "amphp/amp": "^2.0",
+    "amphp/file": "^0.3",
+    "amphp/http-server": "^0.8",
+    "amphp/http-server-form-parser": "dev-master",
+    "amphp/http-server-router": "^1.0",
+    "amphp/log": "^1.0",
+    "amphp/postgres": "dev-master as 0.3",
+    "amphp/websocket-server": "@dev",
+    "league/uri-components": "^1.8",
+    "rdlowrey/auryn": "^1.4",
+    "symfony/yaml": "^4.1",
+    "twig/twig": "^3.0@dev",
+    "amphp/http-server-static-content": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.1@dev",
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Controller\\": "Client/Controller/",
+      "Templating\\": "Client/Templating/",
+      "Repository\\": "DNDMapper/Repository/",
+      "Zvax\\DNDMapper\\": "DNDMapper/",
+      "Zvax\\DNDMapper\\Data\\": "Data/",
+      "Zvax\\DNDMapper\\Client\\": "Client/",
+      "Zvax\\DNDMapper\\Server\\": "Server/"
+    },
+    "files": [
+      "Client/functions.php",
+      "Server/functions.php"
+    ]
+  }
+}

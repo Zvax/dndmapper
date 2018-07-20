@@ -1,0 +1,23 @@
+home:
+  text: Home
+  url: /
+
+system:
+  text: Game System
+  url: /system
+
+  children:
+    actions:
+      text: Actions
+      url: /action
+    character:
+      text: Characters
+      url: /character
+
+map:
+  text: Map Design
+  url: /map
+
+wiki:
+  text: Universe Wiki
+  url: /wiki

@@ -1,0 +1,8 @@
+{% macro format_character_card(character) %}
+<a href="/character/{{character.name}}">
+    <figure>
+        <span>{{character.name}}</span>
+        <figcaption>{{character.getRace().getDescriptor()}} {{character.getClass().getDescriptor()}} level {{character.getLevel()}}</figcaption>
+    </figure>
+</a>
+{% endmacro %}

@@ -1,0 +1,11 @@
+{% extends "layout.twig.html" %}
+{% block content %}
+{% import "macros.twig.html" as formatting %}
+<div class="column character-list">
+    <a href="/character?action=new"><figure><span>Create new character</span></figure></a>
+    {% for character in characters %}
+    {{ formatting.format_character_card(character) }}
+    {% endfor %}
+</div>
+{% block detail %}{% endblock %}
+{% endblock %}

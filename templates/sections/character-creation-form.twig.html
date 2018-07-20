@@ -1,0 +1,20 @@
+{% extends "sections/character.twig.html" %}
+{% block detail %}
+<section class="character-creation">
+    <h1>New character</h1>
+    <form method="post" action="/character" class="column">
+        <h2>Basic information</h2>
+        <label>name<input type="text"></label>
+        <h2>Attributes</h2>
+        <div class="attributes column">
+            <label>str<input type="text"></label>
+            <label>dex<input type="text"></label>
+            <label>con<input type="text"></label>
+            <label>int<input type="text"></label>
+            <label>wis<input type="text"></label>
+            <label>cha<input type="text"></label>
+        </div>
+        <button type="submit">save!</button>
+    </form>
+</section>
+{% endblock %}

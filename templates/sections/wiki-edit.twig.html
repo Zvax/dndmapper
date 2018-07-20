@@ -1,0 +1,10 @@
+{% extends "sections/wiki.twig.html" %}
+{% block form %}
+<form class="column fill-space" action="/wiki/create" method="post">
+    <div class="row space-between">
+        <input class="fill-space" type="text" title="article-title" placeholder="Title" name="title">
+        <button type="submit">save</button>
+    </div>
+    <textarea title="article-text" class="markdown-editor" placeholder="Markdown" name="text">{{article.text}}</textarea>
+</form>
+{% endblock %}

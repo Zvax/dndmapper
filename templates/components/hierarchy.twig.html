@@ -1,0 +1,12 @@
+<ul class="hierarchy">
+    {% for entry in hierarchy %}
+    {% if entry.children %}
+    <li>
+        {{entry.text}}
+        {% include 'components/hierarchy.twig.html' with { 'hierarchy': entry.children } only %}
+    </li>
+    {% else %}
+    <li>{{entry.text}}</li>
+    {% endif %}
+    {% endfor %}
+</ul>
