@@ -16,21 +16,19 @@ class Wiki
         $this->repository = $repository;
     }
 
-    public function create(Server\Request $request, Server\FormParser\Form $form): Amp\Promise
+    public function create(Server\FormParser\Form $form): Amp\Promise
     {
-        return Amp\call(function() use ($request, $form) {
-            // /** @var Server\FormParser\Form $form */
-            // $form = yield Server\FormParser\parseForm($request);
+        return Amp\call(function() use ($form) {
 
-            /** @var Server\FormParser\Field $title */
-            $title = $form->getField('title');
+            if ($form->hasField('title') && $form->hasField('text')) {
+                $title = $form->getField('title');
+                $text = $form->getField('text');
 
-            /** @var Server\FormParser\Field $text */
-            $text = $form->getField('text');
-
-            $article = new DNDMapper\Wiki\Article($title->getValue(), $text->getValue());
-            $this->repository->add($article);
-            return Data\Command::STATUS_OK;
+                $article = new DNDMapper\Wiki\Article($title->getValue(), $text->getValue());
+                $this->repository->add($article);
+                return Data\Command::STATUS_OK;
+            }
+            throw new \InvalidArgumentException('Submitted form does not have required fields.');
         });
     }
 }

@@ -33,12 +33,15 @@ class Command implements Server\RequestHandler
             $command = yield $this->commandFactory->make($entity);
             $form = yield Server\FormParser\parseForm($request);
 
-            $commandResult = yield $command->$action($request, $form);
+            $commandResult = yield $command->$action($form);
 
             if ($commandResult === Data\Command::STATUS_OK) {
                 return new Server\Response(
-                    Http\Status::OK,
-                    ['content-type' => 'text/html, charset=utf-8'],
+                    Http\Status::SEE_OTHER,
+                    [
+                        'content-type' => 'text/plain, charset=utf-8',
+                        'location' => "/$entity",
+                    ],
                     'the command was successful'
                 );
             }

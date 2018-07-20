@@ -2,44 +2,42 @@
 
 namespace Zvax\DNDMapper;
 
-use Mapping\DefaultTile;
-use Mapping\Map;
-use Mapping\TileMatrix2d;
 use PHPUnit\Framework\TestCase;
-use Service\Mapping;
+use Zvax\DNDMapper\Mapping;
+use Zvax\DNDMapper\Service;
 
 class MapInfoSerializationTest extends TestCase
 {
     public function test_map_returns_correctly_formatted_json(): void
     {
-        $map = new Map(new TileMatrix2d(4, 4));
-        $mapService = new Mapping;
+        $map = new Mapping\Map(new Mapping\TileMatrix2d(4, 4));
+        $mapService = new Service\Mapping;
         $json = $mapService->createMapJsonRepresentation($map);
         $shouldBe = [
             'tiles' => [
                 [
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
                 ],
                 [
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
                 ],
                 [
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
                 ],
                 [
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
-                    new DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
+                    new Mapping\DefaultTile,
                 ],
             ]
         ];

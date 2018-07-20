@@ -2,18 +2,19 @@
 
 namespace Zvax\DNDMapper;
 
-use Amp\Postgres\Executor;
-use Amp\Postgres\Pool;
+use Amp;
 use PHPUnit\Framework\TestCase;
-use Query\Character;
+use Zvax\DNDMapper\Data\Query;
+use Zvax\DNDMapper\System;
 
 class MappingTest extends TestCase
 {
     public function test_selects_character(): void
     {
         $injector = createInjector();
-        $characterQuery = $injector->make(Character::class);
-        $character = $characterQuery->execute('elaktor');
-
+        $characterQuery = $injector->make(Query\Character::class);
+        /** @var System\Character $character */
+        $character = Amp\Promise\wait($characterQuery->execute('elaktor'));
+        $this->assertSame('elaktor', $character->getName());
     }
 }

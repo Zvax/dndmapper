@@ -13,6 +13,7 @@ use Auryn\Injector;
 use Controller\Home;
 use Templating;
 use Zvax\DNDMapper\Client\View;
+use Zvax\DNDMapper\Data\Repository;
 use Zvax\DNDMapper\Mapping;
 use Zvax\DNDMapper\Server\Handler;
 use Zvax\DNDMapper\Service;
@@ -92,7 +93,7 @@ function getRoutes(): array
     return [
         ['GET', '/', Home::class],
         ['GET', '/character[/{character_name}]', View\Character::class],
-        ['GET', '/wiki', View\Wiki::class],
+        ['GET', '/wiki[/{action}]', View\Wiki::class],
         ['GET', '/{fileName:.+\.(?:js|css|ico|xml|png|svg)}', StaticContent\DocumentRoot::class],
         ['GET', '/{section}', Handler\View::class],
         ['GET', '/{section}/{action}', Handler\Action::class],
@@ -116,6 +117,7 @@ function createTwigTemplatingEngine(): \Twig_Environment
 function createInjector(): Injector
 {
     $injector = (new Injector)
+        ->share(Repository\Wiki::class)
         ->alias(View\Factory::class, View\ViewFactory::class)
         ->delegate(\Twig_Environment::class, 'Zvax\DNDMapper\createTwigTemplatingEngine')
         ->alias(Templating\Renderer::class, Templating\TwigAdapter::class)
