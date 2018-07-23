@@ -11,7 +11,6 @@ class Wiki implements Data\Repository
     public function add($entity): void
     {
         $this->collection[] = $entity;
-        var_dump('after adding to the elements', $this->collection);
     }
 
     public function getAll()

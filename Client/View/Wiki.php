@@ -6,7 +6,7 @@ use Amp;
 use Amp\Http;
 use Amp\Http\Server;
 use Templating;
-use Zvax\DNDMapper\Data\Repository;
+use Zvax\DNDMapper\Data;
 use Zvax\DNDMapper\Wiki\Hierarchy;
 
 class Wiki implements View, Server\RequestHandler
@@ -14,7 +14,7 @@ class Wiki implements View, Server\RequestHandler
     private $renderer;
     private $repository;
 
-    public function __construct(Templating\Renderer $renderer, Repository\Wiki $repository)
+    public function __construct(Templating\Renderer $renderer, Data\Repository\Wiki $repository)
     {
         $this->renderer = $renderer;
         $this->repository = $repository;
@@ -38,7 +38,6 @@ class Wiki implements View, Server\RequestHandler
 
         return Amp\call(function() {
             $articles = new Hierarchy;
-            var_dump('in view', $this->repository->getAll());
             $html = yield $this->renderer->render('sections/wiki.twig.html', [
                 'hierarchy' => $this->repository->getAll(),
             ]);

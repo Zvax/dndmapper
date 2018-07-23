@@ -2,20 +2,20 @@
 
 namespace Zvax\DNDMapper\Client\View;
 
-use Templating\Renderer;
+use Auryn;
 
 class ViewFactory implements Factory
 {
-    private $renderer;
+    private $injector;
 
-    public function __construct(Renderer $renderer)
+    public function __construct(Auryn\Injector $injector)
     {
-        $this->renderer = $renderer;
+        $this->injector = $injector;
     }
 
     public function make(string $type): View
     {
-        return new $type($this->renderer);
+        return $this->injector->make($type);
     }
 
 }

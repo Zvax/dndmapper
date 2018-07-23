@@ -1,28 +1,29 @@
+#!/usr/bin/php
 <?php declare(strict_types=1);
 
 namespace Zvax\DNDMapper;
 
+use Amp;
 use Amp\ByteStream\ResourceOutputStream;
 use Amp\Http\Server;
-use Amp\Log;
-use Amp\Loop;
 use Monolog\Logger;
 use function Amp\Socket\listen;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-Loop::run(function () {
+$injector = createInjector();
+
+Amp\Loop::run(function () use ($injector) {
     $sockets = [
         listen('0.0.0.0:1337'),
         listen('[::]:1337'),
     ];
 
-    $logHandler = new Log\StreamHandler(new ResourceOutputStream(\STDOUT));
-    $logHandler->setFormatter(new Log\ConsoleFormatter);
+    $logHandler = new Amp\Log\StreamHandler(new ResourceOutputStream(\STDOUT));
+    $logHandler->setFormatter(new Amp\Log\ConsoleFormatter);
     $logger = new Logger('server');
     $logger->pushHandler($logHandler);
 
-    $injector = createInjector();
     $router = new Server\Router();
     populateRouter($router, $injector);
 

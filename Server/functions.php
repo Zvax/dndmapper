@@ -9,16 +9,16 @@ use Amp\Http\Server\StaticContent;
 use Amp\Http\Server\Websocket;
 use Amp\Http\Status;
 use Amp\Postgres;
-use Auryn\Injector;
+use Auryn;
 use Controller\Home;
 use Templating;
 use Zvax\DNDMapper\Client\View;
-use Zvax\DNDMapper\Data\Repository;
+use Zvax\DNDMapper\Data;
 use Zvax\DNDMapper\Mapping;
 use Zvax\DNDMapper\Server\Handler;
 use Zvax\DNDMapper\Service;
 
-function populateRouter(Server\Router $router, Injector $injector): void
+function populateRouter(Server\Router $router, Auryn\Injector $injector): void
 {
 
     $websocket = new Websocket\Websocket(new class implements Websocket\Application
@@ -114,10 +114,16 @@ function createTwigTemplatingEngine(): \Twig_Environment
 }
 
 /** @throws */
-function createInjector(): Injector
+function createInjector(): Auryn\Injector
 {
-    $injector = (new Injector)
-        ->share(Repository\Wiki::class)
+    $injector = (new Auryn\Injector())
+        ->share(Data\Repository\Wiki::class)
+        ->share(Data\Repository::class)
+        ->share(Data\Command\CommandFactory::class)
+        ->share(Data\Command\Wiki::class)
+        ->delegate(Data\Command\Wiki::class, function(Auryn\Injector $injector) {
+            return new Data\Command\Wiki($injector->make(Data\Repository\Wiki::class));
+        })
         ->alias(View\Factory::class, View\ViewFactory::class)
         ->delegate(\Twig_Environment::class, 'Zvax\DNDMapper\createTwigTemplatingEngine')
         ->alias(Templating\Renderer::class, Templating\TwigAdapter::class)
@@ -132,5 +138,6 @@ function createInjector(): Injector
         ->delegate(StaticContent\DocumentRoot::class, function() {
             return new StaticContent\DocumentRoot(__DIR__ . '/../static');
         });
+    $injector->share($injector);
     return $injector;
 }

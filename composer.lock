@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b68caef7efd9ef4d6bd6f4b8a875509",
+    "content-hash": "51eefa072f2825c8b5e030525e18df33",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2916,12 +2916,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b2f113cff4f84c2e6d1646de4f30486a8453f9ff"
+                "reference": "1ad62f2c20d24a0139e0ab196feda2433fe4c004"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b2f113cff4f84c2e6d1646de4f30486a8453f9ff",
-                "reference": "b2f113cff4f84c2e6d1646de4f30486a8453f9ff",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1ad62f2c20d24a0139e0ab196feda2433fe4c004",
+                "reference": "1ad62f2c20d24a0139e0ab196feda2433fe4c004",
                 "shasum": ""
             },
             "require": {
@@ -2992,7 +2992,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-07-19T07:01:46+00:00"
+            "time": "2018-07-21T15:11:49+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -3829,17 +3829,21 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "amphp/http-server-form-parser": 20,
+        "amphp/http-server-static-content": 20,
         "amphp/postgres": 20,
         "amphp/websocket-server": 20,
         "twig/twig": 20,
-        "amphp/http-server-static-content": 20,
         "phpunit/phpunit": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1"
+        "php": ">=7.2",
+        "ext-pgsql": "*",
+        "ext-intl": "*",
+        "ext-curl": "*",
+        "ext-fileinfo": "*"
     },
     "platform-dev": []
 }

@@ -26,6 +26,7 @@ class Character
                 $row = $result->getCurrent();
                 return (new System\Character)->setName($row['name']);
             }
+            return false;
         });
     }
 }

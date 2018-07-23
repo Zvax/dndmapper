@@ -96,33 +96,6 @@ button[type=submit] {
     padding: var(--spacing-width);
 }
 
-.character-list figure {
-    border-radius: 10px;
-    margin: 0;
-    padding: 12px;
-    transition: 0.3s;
-    transition-property: color, background-color;
-}
-
-.character-list figure:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    cursor: pointer;
-}
-
-.character-creation .attributes {
-    align-items: center;
-}
-
-.character-creation .attributes input {
-    width: 50px;
-}
-
-textarea.markdown-editor {
-    width: 100%;
-    min-height: 400px;
-}
-
 @media screen and (min-width: 1200px) {
     .content {
         display:flex;
@@ -135,9 +108,4 @@ textarea.markdown-editor {
         display:flex;
         flex-direction: column;
     }
-}
-
-#map-viewport {
-    width: 800px;
-    height: 400px;
 }
