@@ -25,7 +25,7 @@ class Hierarchy
         [ 'text' => 'elem 4' ],
     ];
 
-    public function getElements()
+    public function getElements(): array
     {
         return $this->elements;
     }

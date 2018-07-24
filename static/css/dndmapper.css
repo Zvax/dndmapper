@@ -43,3 +43,29 @@ textarea.markdown-editor {
     width: 800px;
     height: 400px;
 }
+
+i {
+    transition: all 0.3s;
+}
+
+li.collapsed ul {
+    display: none;
+    transition: all 0.3s;
+}
+
+li.parent > div > i::after {
+    content: 'keyboard_arrow_right'
+}
+
+li.opened > div > i {
+    transform: rotate(90deg);
+}
+
+li ul {
+    margin-left: var(--spacing-width);
+}
+
+li.child {
+    padding-left: 24px;
+    line-height: 24px;
+}

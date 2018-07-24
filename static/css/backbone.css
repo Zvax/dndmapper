@@ -2,6 +2,10 @@
     --base-unit: 4px;
     --column-width: calc(var(--base-unit) * 16);
     --spacing-width: calc(var(--base-unit) * 4);
+    --list-spacing-width: calc(var(--base-unit) * 2);
+    --color-text: rgba(0, 0, 0, 0.7);
+    --color-separators: rgba(0, 0, 0, 0.4);
+    --color-background: rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (min-width: 600px) {
@@ -36,10 +40,6 @@ ul, li, h1, h2, h3, h4, h5, h6, textarea, input, p {
 
 ul {
     list-style-type: none;
-}
-
-li ul {
-    margin-left: var(--spacing-width);
 }
 
 a, a:visited, a:hover {

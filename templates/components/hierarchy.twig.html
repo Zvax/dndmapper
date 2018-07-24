@@ -1,12 +1,22 @@
+<div class="hierarchy row">
+    {% for entry in hierarchy %}
+    {% endfor %}
+</div>
+
+
+
 <ul class="hierarchy">
     {% for entry in hierarchy %}
     {% if entry.children %}
-    <li>
-        {{entry.text}}
+    <li class="parent collapsed column">
+        <div class="row">
+            <i class=material-icons></i>
+            <span>{{entry.text}}</span>
+        </div>
         {% include 'components/hierarchy.twig.html' with { 'hierarchy': entry.children } only %}
     </li>
     {% else %}
-    <li>{{entry.text}}</li>
+    <li class="child">{{entry.text}}</li>
     {% endif %}
     {% endfor %}
 </ul>

@@ -17,7 +17,29 @@ const HTTP = (() => {
 })();
 
 
+const activateMenuToggling = () => {
+    console.groupCollapsed('Activating menu toggling.');
+    const list_items = document.getElementsByTagName('li');
+    const nb = list_items.length;
+    for (let i = 0; i !== nb; i++) {
+        const item = list_items[i];
+        const ul = item.getElementsByTagName('li');
+        console.log('Checking presence of children for element %o, children: %o', item, ul);
+        item.addEventListener('click', event => {
+            if (ul.length > 0) {
+                item.classList.toggle('collapsed');
+                item.classList.toggle('opened');
+            }
+            event.stopPropagation();
+        });
+    }
+    console.groupEnd();
+};
+
+
 window.addEventListener('DOMContentLoaded', () => {
+
+    activateMenuToggling();
 
     const canvas = document.getElementById('map-viewport');
     let start_x;
