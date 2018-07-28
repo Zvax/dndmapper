@@ -69,3 +69,8 @@ li.child {
     padding-left: 24px;
     line-height: 24px;
 }
+
+section.statistics ul {
+    display: grid;
+    grid-template-columns: repeat(6, 60px);
+}

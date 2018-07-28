@@ -35,7 +35,8 @@ class Action implements Server\RequestHandler
 
     private function invokeFactory(string $section): Amp\Promise {
         return Amp\call(function() use($section) {
-            return $this->viewFactory->make("Zvax\DNDMapper\Client\View\\$section");
+            $className = ucfirst($section);
+            return $this->viewFactory->make("Zvax\DNDMapper\Client\View\\$className");
         });
     }
 

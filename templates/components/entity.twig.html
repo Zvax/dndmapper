@@ -1,0 +1,40 @@
+{% extends "sections/character.twig.html" %}
+{% block detail %}
+<div class="entity">
+    <section>
+        <h3>{{e.name}}</h3>
+        <p>{{e.race.name}} ({{e.category}}), {{e.alignment}}</p>
+    </section>
+    <section>
+        <p><span class="bold">Armor Class</span> {{e.armor_class}} ({{e.armor_description}})</p>
+        <p><span class="bold">Hit Points</span> {{e.hit_points}} ({{e.hit_dies}})</p>
+        <p><span class="bold">Speed</span> {{e.speed}}</p>
+    </section>
+    <section class="statistics">
+        <ul>
+            <li class="column"><span>STR</span><span>{{e.statistics.str}}</span></li>
+            <li class="column"><span>DEX</span><span>{{e.statistics.dex}}</span></li>
+            <li class="column"><span>CON</span><span>{{e.statistics.con}}</span></li>
+            <li class="column"><span>INT</span><span>{{e.statistics.int}}</span></li>
+            <li class="column"><span>WIS</span><span>{{e.statistics.wis}}</span></li>
+            <li class="column"><span>CHA</span><span>{{e.statistics.cha}}</span></li>
+        </ul>
+    </section>
+    <section>
+        <p><span>Skills</span> {{e.skills}}</p>
+        <p><span>Senses</span> {{e.sight_range}}</p>
+        <p><span>Languages</span> {{e.languages}}</p>
+        <p><span>Challenge</span> {{e.challenge_rating}}</p>
+    </section>
+    <section>
+        {% for ability in e.abilities %}
+        <p><span>{{ability.title}}</span> {{ability.description}}</p>
+        {% endfor %}
+    </section>
+    <section>
+        {% for action in e.actions %}
+        <p><span>{{action.title}}</span> {{action.description}}</p>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

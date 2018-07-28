@@ -2,7 +2,7 @@
 <a href="/character/{{character.name}}">
     <figure>
         <span>{{character.name}}</span>
-        <figcaption>{{character.getRace().getDescriptor()}} {{character.getClass().getDescriptor()}} level {{character.getLevel()}}</figcaption>
+        <figcaption>{{character.race.description}} {{character.class.description}} level {{character.level}}</figcaption>
     </figure>
 </a>
 {% endmacro %}

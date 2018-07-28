@@ -2,3 +2,6 @@
 /vendor/
 /data/cache
 config.php
+/lib/cli-tools/.idea
+/lib/cli-tools/cmake-build-debug
+*.phpunit*

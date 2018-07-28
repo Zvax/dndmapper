@@ -6,7 +6,7 @@ use Amp;
 use Amp\Http\Server;
 use Amp\Http\Status;
 use League\Uri;
-use Zvax\DNDMapper\Data\Repository;
+use Zvax\DNDMapper\Data;
 use Templating;
 use Zvax\DNDMapper\Data\Query;
 
@@ -17,12 +17,12 @@ class Character implements Server\RequestHandler
     private $repository;
 
     public function __construct(
-        Templating\Renderer $r,
+        Templating\Renderer $renderer,
         Query\DBQueryBuilder $queryBuilder,
-        Repository\Character $repository
+        Data\Repository $repository
     )
     {
-        $this->renderer = $r;
+        $this->renderer = $renderer;
         $this->queryBuilder = $queryBuilder;
         $this->repository = $repository;
     }
@@ -30,7 +30,7 @@ class Character implements Server\RequestHandler
     public function handleRequest(Server\Request $request): Amp\Promise
     {
         return Amp\call(function () use ($request) {
-            $characters = yield $this->repository->get();
+            $characters = yield $this->repository->getAll();
             $query = new Uri\Components\Query($request->getUri()->getQuery());
             $args = $request->getAttribute(Server\Router::class);
             $action = $query->getParam('action');
@@ -46,13 +46,15 @@ class Character implements Server\RequestHandler
     private function dispatchRequestOptions($args, $characters, $action): Amp\Promise {
         return Amp\call(function() use($args, $characters, $action) {
             if (isset($args['character_name'])) {
-                $characterName = $args['character_name'];
-                /** @var Query\Character $fetchCharacterByName */
-                $fetchCharacterByName = $this->queryBuilder->make(Query\Character::class);
-                $characterDetail = yield $fetchCharacterByName->execute($characterName);
-                return yield $this->renderer->render('sections/character-detail.twig.html', [
+                $character_name = $args['character_name'];
+                $condition = new class implements Data\Condition {
+                    public $name;
+                };
+                $condition->name = $character_name;
+                $characterDetail = yield $this->repository->fetch($condition);
+                return yield $this->renderer->render('components/entity.twig.html', [
                     'characters' => $characters,
-                    'character' => $characterDetail,
+                    'e' => $characterDetail,
                 ]);
             }
             if ($action) {

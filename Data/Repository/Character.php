@@ -9,14 +9,19 @@ class Character implements Data\Repository
 {
     private $entries;
 
-    public function getAll()
+    public function getAll(): Amp\Promise
     {
-        // TODO: Implement getAll() method.
+        return Amp\call(function () {
+            return iterator_to_array($this->entries);
+        });
     }
 
-    public function __construct()
+    public function __construct(array $entries = [])
     {
         $this->entries = new \SplObjectStorage;
+        foreach ($entries as $character) {
+            $this->add($character);
+        }
     }
 
     public function add($entity): void
@@ -27,10 +32,27 @@ class Character implements Data\Repository
         $this->entries->attach($entity);
     }
 
-    public function get(): Amp\Promise
+    public function fetch(Data\Condition $condition): Amp\Promise
     {
-        return Amp\call(function() {
-            yield from $this->entries;
+        return Amp\call(function () use ($condition) {
+            if (isset($condition->name)) {
+                return yield $this->find_entity_by_name($condition->name);
+            }
+            throw new \InvalidArgumentException("No valid search schemas found for " . self::class . ".");
         });
     }
+
+    private function find_entity_by_name($entity_name): Amp\Promise
+    {
+        return Amp\call(function () use ($entity_name) {
+            foreach ($this->entries as $entity) {
+                if ($entity_name === $entity->name) {
+                    return $entity;
+                }
+            }
+            throw new \InvalidArgumentException();
+        });
+    }
+
+
 }

@@ -18,5 +18,10 @@ class Wiki implements Data\Repository
         return $this->collection;
     }
 
+    public function fetch(Data\Condition $condition)
+    {
+        throw new \Exception("unimplemented method fetch on wiki repository");
+    }
+
 
 }

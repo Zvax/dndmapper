@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#ffffff">
     <script type="application/ecmascript" src="/js/mapping.js"></script>
 </head>
-<body class="row">
+<body>
 <div class="sidebar column">
     <div class="paper">
         <h1>DnDMapper</h1>
@@ -32,8 +32,6 @@
         content at bottom
     </div>
 </div>
-<div class="content">
-    <div class="paper">{% block content %}{{content}}{% endblock %}</div>
-</div>
+<div class="paper">{% block content %}{{content}}{% endblock %}</div>
 </body>
 </html>

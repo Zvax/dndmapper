@@ -23,9 +23,13 @@ html, body {
 }
 
 body {
+    display: grid;
     background-color: rgba(0, 0, 0, 0.1);
-    padding: 0;
+    grid-template-columns: 300px 1fr;
+    padding: var(--spacing-width);
     margin: 0;
+    box-sizing: border-box;
+    column-gap: var(--spacing-width);
 }
 
 textarea, input[type=text] {
@@ -87,13 +91,6 @@ button[type=submit] {
 
 .sidebar {
     justify-content: space-between;
-    width: calc(100% / 12 * 3);
-    padding: var(--spacing-width);
-}
-
-.content {
-    width: calc(100% / 12 * 9);
-    padding: var(--spacing-width);
 }
 
 @media screen and (min-width: 1200px) {

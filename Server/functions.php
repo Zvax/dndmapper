@@ -135,6 +135,40 @@ function createInjector(): Auryn\Injector
         ->alias(Postgres\Executor::class, Postgres\Pool::class)
         ->alias(Postgres\Link::class, Postgres\Pool::class)
         ->share(Postgres\Pool::class)
+        ->delegate(View\Character::class, function (Auryn\Injector $injector) {
+            $repository = $injector->make(Data\Repository\Character::class);
+            $goblin = new class implements Data\Entity {
+                public $name = 'Elaktor';
+                public $level = 7;
+                public $category = 'Goblinoid';
+                public $race;
+                public $statistics;
+
+                public function __construct()
+                {
+                    $this->race = new class {
+                        public $name = 'Elf';
+                        public $description = 'Humanoid';
+                        public $category = 'Humanoid';
+                    };
+                    $this->statistics = new class {
+                        public $str = 12;
+                        public $con = 27;
+                        public $dex = 21;
+                        public $int = 18;
+                        public $wis = 9;
+                        public $cha = 18;
+                    };
+                }
+            };
+
+            $repository->add($goblin);
+            return new View\Character(
+                $injector->make(Templating\Renderer::class),
+                $injector->make(Data\Query\DBQueryBuilder::class),
+                $repository
+            );
+        })
         ->delegate(StaticContent\DocumentRoot::class, function() {
             return new StaticContent\DocumentRoot(__DIR__ . '/../static');
         });
