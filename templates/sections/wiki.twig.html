@@ -1,17 +1,21 @@
 {% extends "content.twig.html" %}
 {% block content %}
-<h2>Universe wiki</h2>
-<p>
-    Welcome to the universe wiki section of DnDMapper. The game systems and maps need a context.
-    This section's goal is to present a markdown editor,
-    and a way to arrange articles in meaningful tree-like universe descriptions.
-</p>
-<div class="row">
-    <div class="article-tree column">
-        <p>Current wiki articles:</p>
-        {% include 'components/hierarchy.twig.html' %}
-        <a href="/wiki/create">Create new article</a>
+<section class="wiki">
+    <div></div>
+    <h2>Universe wiki</h2>
+    <p>
+        Welcome to the universe wiki section of DnDMapper. The game systems and maps need a context.
+        This section's goal is to present a markdown editor,
+        and a way to arrange articles in meaningful tree-like universe descriptions.
+    </p>
+    <div class="row">
+        <div class="article-tree column">
+            <p>Current wiki articles:</p>
+            {% include 'components/hierarchy.twig.html' %}
+            <a href="/wiki/create">Create new article</a>
+        </div>
+        {% block form %}{% endblock %}
     </div>
-    {% block form %}{% endblock %}
-</div>
+    <div></div>
+</section>
 {% endblock %}

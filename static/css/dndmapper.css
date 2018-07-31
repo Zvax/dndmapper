@@ -1,3 +1,20 @@
+body {
+    display: grid;
+    background-color: rgba(0, 0, 0, 0.1);
+    grid-template-columns: 1fr 200px max-content 200px 1fr;
+    grid-auto-flow: dense;
+    margin: 0;
+    box-sizing: border-box;
+    column-gap: var(--spacing-width);
+    grid-template-rows: minmax(max-content, 50vh) max-content 1fr;
+}
+main {
+    grid-column: span 5;
+}
+section.menu {
+    grid-row: span 2;
+    text-align: right;
+}
 .character-list figure {
     border-radius: 10px;
     margin: 0;
@@ -5,72 +22,93 @@
     transition: 0.3s;
     transition-property: color, background-color;
 }
-
 .character-list figure:hover {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     cursor: pointer;
 }
-
 .character-creation .attributes {
     align-items: center;
 }
-
 .character-creation .attributes input {
     width: 50px;
 }
-
 textarea.markdown-editor {
     width: 100%;
-    min-height: 400px;
 }
-
 @media screen and (min-width: 1200px) {
     .content {
         display:flex;
         flex-direction: row;
     }
 }
-
 @media screen and (max-width: 1199px) {
     .content {
         display:flex;
         flex-direction: column;
     }
 }
-
 #map-viewport {
     width: 800px;
     height: 400px;
 }
-
 i {
     transition: all 0.3s;
 }
-
 li.collapsed ul {
     display: none;
     transition: all 0.3s;
 }
-
 li.parent > div > i::after {
     content: 'keyboard_arrow_right'
 }
-
 li.opened > div > i {
     transform: rotate(90deg);
 }
-
 li ul {
     margin-left: var(--spacing-width);
 }
-
 li.child {
     padding-left: 24px;
     line-height: 24px;
 }
-
 section.statistics ul {
     display: grid;
     grid-template-columns: repeat(6, 60px);
+}
+.game-session {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.game-session-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+section.wiki {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr max-content minmax(200px, 1fr) max-content 1fr;
+}
+section.wiki h2 {
+    writing-mode: vertical-rl;
+    text-align: right;
+}
+section.wiki p {
+    vertical-align: bottom;
+    column-width: 200px;
+    column-gap: 2em;
+    column-fill: auto;
+}
+section.wiki header {
+    display: grid;
+    align-content: center;
+    grid-template-columns: max-content 1fr;
+}
+ul.menus {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr));
+    grid-auto-flow: dense;
 }

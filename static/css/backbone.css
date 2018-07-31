@@ -16,20 +16,10 @@
 
 html, body {
     height: 100%;
-    font-size: 1rem;
+    font-size: 0.97rem;
     color: rgba(0, 0, 0, 0.7);
     text-align: left;
     font-family: 'Open Sans', sans-serif;
-}
-
-body {
-    display: grid;
-    background-color: rgba(0, 0, 0, 0.1);
-    grid-template-columns: 300px 1fr;
-    padding: var(--spacing-width);
-    margin: 0;
-    box-sizing: border-box;
-    column-gap: var(--spacing-width);
 }
 
 textarea, input[type=text] {

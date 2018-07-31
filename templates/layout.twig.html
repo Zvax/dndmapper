@@ -21,17 +21,15 @@
     <script type="application/ecmascript" src="/js/mapping.js"></script>
 </head>
 <body>
-<div class="sidebar column">
-    <div class="paper">
-        <h1>DnDMapper</h1>
-        {% block menu %}
-        {% include("components/menu.twig.html") %}
-        {% endblock %}
-    </div>
-    <div>
-        content at bottom
-    </div>
-</div>
-<div class="paper">{% block content %}{{content}}{% endblock %}</div>
+<main>{% block content %}{{content}}{% endblock %}</main>
+<div></div>
+<section class="menu">
+    {% block menu %}
+    {% include("components/menu.twig.html") %}
+    {% endblock %}
+</section>
+<header><h1>DnDMapper</h1></header>
+<section class="session">{{error_message}}</section>
+<div></div>
 </body>
 </html>
