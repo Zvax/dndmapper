@@ -1,10 +1,10 @@
-<ul class="menus">
-    {% for menu in menus %}
-    <li>
-        <a href="{{menu.url}}">{{menu.text}}</a>
-        {% if menu.children %}
+{% for menu in menus %}
+<li>
+    <a href="{{menu.url}}">{{menu.text}}</a>
+    {% if menu.children %}
+    <menu>
         {% include("components/menu.twig.html") with { 'menus': menu.children } %}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+    </menu>
+    {% endif %}
+</li>
+{% endfor %}

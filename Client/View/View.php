@@ -2,4 +2,7 @@
 
 namespace Zvax\DNDMapper\Client\View;
 
-interface View {}
+interface View
+{
+    public function show();
+}

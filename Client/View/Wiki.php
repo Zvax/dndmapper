@@ -27,7 +27,10 @@ class Wiki implements View, Server\RequestHandler
         if (array_key_exists('action', $args)) {
             return Amp\call(function() use ($args) {
                 $action = $args['action'];
-                $html = yield $this->renderer->render('sections/wiki-edit.twig.html');
+                $html = yield $this->renderer->render('sections/wiki-edit.twig.html', [
+                    'hierarchy' => $this->repository->getAll(),
+                    'section' => 'Universe wiki'
+                ]);
                 return new Server\Response(
                     Http\Status::OK,
                     ['content-type' => 'text/html, charset=utf-8'],
@@ -40,6 +43,7 @@ class Wiki implements View, Server\RequestHandler
             $articles = new Hierarchy;
             $html = yield $this->renderer->render('sections/wiki.twig.html', [
                 'hierarchy' => $this->repository->getAll(),
+                'section' => 'Universe wiki'
             ]);
             return new Server\Response(
                 Http\Status::OK,
@@ -48,4 +52,11 @@ class Wiki implements View, Server\RequestHandler
             );
         });
     }
+
+    public function show()
+    {
+        // TODO: Implement show() method.
+    }
+
+
 }

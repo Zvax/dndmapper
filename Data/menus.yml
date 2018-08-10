@@ -18,6 +18,14 @@ map:
   text: Map Design
   url: /map
 
+game:
+  text: Game Session
+  url: /game
+
 wiki:
   text: Universe Wiki
   url: /wiki
+
+city:
+  text: City Management
+  url: /city-management

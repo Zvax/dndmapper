@@ -3,20 +3,20 @@
 namespace Zvax\DNDMapper\Server\Handler;
 
 use Amp;
-use Amp\Http\Server;
 use Amp\Http;
+use Amp\Http\Server;
+use Auryn;
 use Templating\Renderer;
-use Zvax\DNDMapper\Client\View\Factory;
 
 class View implements Server\RequestHandler
 {
     private $renderer;
-    private $viewFactory;
+    private $injector;
 
-    public function __construct(Renderer $renderer, Factory $viewFactory)
+    public function __construct(Renderer $renderer, Auryn\Injector $injector)
     {
         $this->renderer = $renderer;
-        $this->viewFactory = $viewFactory;
+        $this->injector = $injector;
     }
 
     public function handleRequest(Server\Request $request): Amp\Promise

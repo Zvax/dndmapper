@@ -43,19 +43,11 @@ class Character implements Server\RequestHandler
         });
     }
 
-    private function dispatchRequestOptions($args, $characters, $action): Amp\Promise {
-        return Amp\call(function() use($args, $characters, $action) {
+    private function dispatchRequestOptions($args, $characters, $action): Amp\Promise
+    {
+        return Amp\call(function () use ($args, $characters, $action) {
             if (isset($args['character_name'])) {
-                $character_name = $args['character_name'];
-                $condition = new class implements Data\Condition {
-                    public $name;
-                };
-                $condition->name = $character_name;
-                $characterDetail = yield $this->repository->fetch($condition);
-                return yield $this->renderer->render('components/entity.twig.html', [
-                    'characters' => $characters,
-                    'e' => $characterDetail,
-                ]);
+                return yield $this->makeSingleCharacterSection($args['character_name'], $characters);
             }
             if ($action) {
                 return yield $this->renderer->render('sections/character-creation-form.twig.html', [
@@ -66,9 +58,35 @@ class Character implements Server\RequestHandler
         });
     }
 
+    private function makeSingleCharacterSection(string $character_name, $characters): Amp\Promise
+    {
+        return Amp\call(function() use ($character_name, $characters) {
+            $condition = new class($character_name) implements Data\Condition
+            {
+                public $name;
+                public function __construct(string $name)
+                {
+                    $this->name = $name;
+                }
+            };
+            try {
+                $characterDetail = yield $this->repository->fetch($condition);
+            } catch (\InvalidArgumentException $exception) {
+                return yield $this->renderer->render('sections/character.twig.html', [
+                    'characters' => $characters,
+                    'error_message' => "The character $character_name does not exist."
+                ]);
+            }
+            return yield $this->renderer->render('components/entity.twig.html', [
+                'characters' => $characters,
+                'e' => $characterDetail,
+            ]);
+        });
+    }
+
     private function showCharacterList($characters): Amp\Promise
     {
-        return Amp\call(function() use ($characters) {
+        return Amp\call(function () use ($characters) {
             return yield $this->renderer->render('sections/character.twig.html', [
                 'characters' => $characters,
             ]);
